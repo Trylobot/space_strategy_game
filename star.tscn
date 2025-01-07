@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfxmaxv71dndb"]
+
+[ext_resource type="Script" path="res://star.gd" id="1_vpcib"]
+
+[node name="Star" type="Sprite2D"]
+script = ExtResource("1_vpcib")
