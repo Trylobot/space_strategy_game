@@ -8,6 +8,9 @@ const STARLANE_COLOR = Color(0.5,0.5,0.5) # Grey lanes
 const MAP_WIDTH = 1024
 const MAP_HEIGHT = 768
 
+
+
+
 var default_font = ThemeDB.fallback_font
 var default_font_size = ThemeDB.fallback_font_size
 
@@ -25,7 +28,8 @@ func _draw():
 	for star in stars:
 		draw_circle(star.position, star.size, STAR_COLOR, false)
 	
-	#draw_string(default_font, Vector2.ZERO, "Hello world", HORIZONTAL_ALIGNMENT_LEFT, -1, default_font_size)
+	#draw_string(default_font, Vector2.ZERO, "0,0", HORIZONTAL_ALIGNMENT_LEFT, -1, default_font_size)
+	#draw_string(default_font, Vector2(-0.5 * MAP_WIDTH, -0.5 * MAP_HEIGHT), ",0", HORIZONTAL_ALIGNMENT_LEFT, -1, default_font_size)
 
 func generate_stars():
 	# generate star systems
