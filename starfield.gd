@@ -12,9 +12,10 @@ var default_font = ThemeDB.fallback_font
 var default_font_size = ThemeDB.fallback_font_size
 
 @onready var star_scene = load("res://star.tscn")
+@onready var spacelane_scene = load("res://spacelane.tscn")
 
-var stars = []
-var star_lanes = []
+#var stars = []
+#var star_lanes = []
 
 func _ready():
 	randomize() # Seed the random number generator
@@ -25,11 +26,8 @@ func _ready():
 func _draw():
 	for star in $Starmap.get_children():
 		draw_circle( star.position, star.size, STAR_COLOR, false )
-	#for s in star_lanes:
-		#draw_line(stars[s.s0].position, stars[s.s1].position, STARLANE_COLOR, 0.25, true)
-	#for star in stars:
-		#draw_circle(star.position, star.size, STAR_COLOR, false)
-		
+	for spacelane in $Spacelanes.get_children():
+		draw_line( $Starmap.get_child(spacelane.s0).position, $Starmap.get_child(spacelane.s1).position, STARLANE_COLOR, 0.25, true )
 	#draw_string(default_font, Vector2.ZERO, "0,0", HORIZONTAL_ALIGNMENT_LEFT, -1, default_font_size)
 	#draw_string(default_font, Vector2(-0.5 * MAP_WIDTH, -0.5 * MAP_HEIGHT), ",0", HORIZONTAL_ALIGNMENT_LEFT, -1, default_font_size)
 	pass
@@ -56,11 +54,24 @@ func generate_stars():
 			$Starmap.get_child(i).stars_by_distance.sort_custom(compare_star_distance)
 	for i in range(STARLANE_COUNT):
 		var s0_idx = randi() % STAR_COUNT
-		star_lanes.append({
-			"s0": s0_idx,
-			"s1": $Starmap.get_child(s0_idx).stars_by_distance[1].star_idx, # first star is always self with distance 0, closest neighbor should be position 1
-		})
-	
+		var s0 = $Starmap.get_child(s0_idx)
+		# first star is always self with distance 0, closest neighbor should be position 1, etc
+		var spacelane
+		if s0.size >= 3:
+			spacelane = spacelane_scene.instantiate()
+			spacelane.s0 = s0_idx
+			spacelane.s1 = $Starmap.get_child(s0_idx).stars_by_distance[1].star_idx 
+			$Spacelanes.add_child(spacelane)
+		if s0.size >= 6:
+			spacelane = spacelane_scene.instantiate()
+			spacelane.s0 = s0_idx
+			spacelane.s1 = $Starmap.get_child(s0_idx).stars_by_distance[2].star_idx
+			$Spacelanes.add_child(spacelane)
+		if s0.size >= 9:
+			spacelane = spacelane_scene.instantiate()
+			spacelane.s0 = s0_idx
+			spacelane.s1 = $Starmap.get_child(s0_idx).stars_by_distance[3].star_idx
+			$Spacelanes.add_child(spacelane)
 	pass
 	
 func compare_star_distance(s0, s1):

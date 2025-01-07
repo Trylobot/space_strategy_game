@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://7lpqbd0gjc4g"]
+
+[ext_resource type="Script" path="res://spacelane.gd" id="1_sk1ga"]
+
+[node name="Spacelane" type="Sprite2D"]
+script = ExtResource("1_sk1ga")

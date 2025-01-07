@@ -12,3 +12,5 @@ script = ExtResource("1_6m8kl")
 script = ExtResource("2_nnt7t")
 
 [node name="Starmap" type="Node" parent="Starfield"]
+
+[node name="Spacelanes" type="Node" parent="Starfield"]
