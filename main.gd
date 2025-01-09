@@ -39,7 +39,7 @@ func _draw():
 func generate_stars():
 	for i in range(STAR_COUNT):
 		var star = star_scene.instantiate()
-		star.global_position = Vector2( randi() % MAP_WIDTH - (0.5 * MAP_WIDTH), randi() % MAP_HEIGHT - (0.5 * MAP_HEIGHT) )
+		star.position = Vector2( randi() % MAP_WIDTH, randi() % MAP_HEIGHT )
 		star.size = randf() * 11 + 3  # Random size between 3 and 12
 		star.brightness = randf() * 0.5 + 0.5  # Random brightness between 0.5 and 1
 		star.distance_to_star = {} # distance to all other stars by star index
@@ -48,7 +48,7 @@ func generate_stars():
 
 	for i in range(STAR_COUNT):
 		for j in range(STAR_COUNT):
-			$Starmap.get_child(i).distance_to_star[j] = $Starmap.get_child(i).global_position.distance_to( $Starmap.get_child(j).global_position )
+			$Starmap.get_child(i).distance_to_star[j] = $Starmap.get_child(i).position.distance_to( $Starmap.get_child(j).position )
 	for i in range(STAR_COUNT):
 		for j in range(STAR_COUNT):
 			$Starmap.get_child(i).stars_by_distance.append({
@@ -70,8 +70,8 @@ func compare_star_distance(s0, s1):
 
 func create_spacelane(s0_idx,offset,min_size):
 	var spacelane = spacelane_scene.instantiate()
-	spacelane.s0 = $Starmap.get_child(s0_idx).position
-	spacelane.s1 = $Starmap.get_child($Starmap.get_child(s0_idx).stars_by_distance[offset].star_idx).position
+	spacelane.s0 = $Starmap.get_child(s0_idx)
+	spacelane.s1 = $Starmap.get_child($Starmap.get_child(s0_idx).stars_by_distance[offset].star_idx)
 	return spacelane
 
 func add_factions():

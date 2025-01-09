@@ -22,7 +22,7 @@ func spawn_starting_units( starmap ):
 		var unit = unit_scene.instantiate()
 		unit.unit_type = unit_type
 		var star_idx = randi() % starmap.get_children().size()
-		unit.global_position = starmap.get_child( star_idx ).global_position
+		unit.position = starmap.get_child( star_idx ).position
 		$Units.add_child( unit )
 	pass
 	

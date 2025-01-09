@@ -30,11 +30,11 @@ func _unhandled_input(event):
 		position = start_position + relative_motion * (viewport_size * zoom)
 
 func zoom_at_point(zoom_factor: float, point: Vector2):
-	#var new_zoom = zoom * zoom_factor
-	#new_zoom.x = clamp(new_zoom.x, min_zoom, max_zoom)
-	#new_zoom.y = clamp(new_zoom.y, min_zoom, max_zoom)
-	#
-	#var mouse_pos = point - position
-	#position += (mouse_pos - mouse_pos) * zoom_factor
-	#zoom = new_zoom
+	var new_zoom = zoom * zoom_factor
+	new_zoom.x = clamp(new_zoom.x, min_zoom, max_zoom)
+	new_zoom.y = clamp(new_zoom.y, min_zoom, max_zoom)
+	
+	var mouse_pos = point - position
+	position += (mouse_pos - mouse_pos) * zoom_factor
+	zoom = new_zoom
 	pass
