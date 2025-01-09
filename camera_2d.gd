@@ -35,6 +35,6 @@ func zoom_at_point(zoom_factor: float, point: Vector2):
 	new_zoom.y = clamp(new_zoom.y, min_zoom, max_zoom)
 	
 	var mouse_pos = point - position
-	position += (mouse_pos - mouse_pos) * zoom_factor
+	position += mouse_pos - (mouse_pos * zoom_factor)
 	zoom = new_zoom
 	pass

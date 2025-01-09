@@ -6,7 +6,7 @@ const STARTING_UNITS = ["colony_ship"]
 
 
 #var name = "Example Faction"
-var color = Color(1,1,1)
+var color = Color.WHITE
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,12 +17,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func spawn_starting_units( starmap ):
+func spawn_starting_units( starmap, unit_on_pressed_handler ):
 	for unit_type in STARTING_UNITS:
 		var unit = unit_scene.instantiate()
-		unit.unit_type = unit_type
 		var star_idx = randi() % starmap.get_children().size()
+		unit.unit_type = unit_type
 		unit.position = starmap.get_child( star_idx ).position
+		unit.unit_pressed.connect(unit_on_pressed_handler)
 		$Units.add_child( unit )
 	pass
 	

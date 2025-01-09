@@ -19,9 +19,13 @@ var spacelane_scene = load("res://spacelane.tscn")
 var faction_scene = load("res://faction.tscn")
 var unit_scene = load("res://unit.tscn")
 
+
+var selected_unit = null
+
+
 func _ready():
 	randomize() # Seed the random number generator
-	generate_stars()
+	generate_starmap()
 	add_factions()
 	spawn_starting_units()
 	pass
@@ -36,12 +40,40 @@ func _draw():
 			unit._draw()
 	pass
 
-func generate_stars():
+func _unhandled_input(event):
+	if event is InputEventMouseMotion:
+		var mouse_pos = get_viewport().get_mouse_position()
+		
+		#if selected_unit != null: # DOES NOT WORK
+			#for spacelane in $Spacelanes.get_children():
+				#if spacelane.check_hover( mouse_pos ):
+					#spacelane.mouse_is_hover = true
+				#else:
+					#spacelane.mouse_is_hover = false
+		#else:
+			#for spacelane in $Spacelanes.get_children():
+				#spacelane.mouse_is_hover = false
+		for spacelane in $Spacelanes.get_children():
+			if spacelane.check_hover( mouse_pos ):
+				spacelane.mouse_is_hover = true
+			else:
+				spacelane.mouse_is_hover = false
+
+	elif event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			selected_unit = null
+	pass
+
+func on_unit_pressed( unit ):
+	selected_unit = unit
+
+func generate_starmap():
 	for i in range(STAR_COUNT):
 		var star = star_scene.instantiate()
 		star.position = Vector2( randi() % MAP_WIDTH, randi() % MAP_HEIGHT )
 		star.size = randf() * 11 + 3  # Random size between 3 and 12
 		star.brightness = randf() * 0.5 + 0.5  # Random brightness between 0.5 and 1
+		star.color = Color.from_hsv(randf(),1,1)
 		star.distance_to_star = {} # distance to all other stars by star index
 		star.stars_by_distance = [] # list of stars by distance to this star, ascending
 		$Starmap.add_child(star)
@@ -84,6 +116,7 @@ func add_factions():
 	
 func spawn_starting_units():
 	for faction in $Factions.get_children():
-		faction.spawn_starting_units( $Starmap )
+		faction.spawn_starting_units( $Starmap, on_unit_pressed )
 	pass
+	
 	

@@ -3,6 +3,7 @@ extends Sprite2D
 var idx = 0
 var size = 1.000
 var brightness = 1
+var color = Color.WHITE
 var distance_to_star = {}
 var stars_by_distance = []
 
@@ -16,5 +17,5 @@ func _process(delta: float) -> void:
 	pass
 
 func _draw():
-	draw_circle( position, size, Color.WHITE, false )
+	draw_circle( position, size, color, false )
 	pass

@@ -3,6 +3,8 @@ extends Sprite2D
 #var faction
 var unit_type:String
 
+signal unit_pressed
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#$Hotspot.text = "Unit"
@@ -12,8 +14,7 @@ func _ready() -> void:
 	pass
 
 func _pressed():
-	print("click")
-	pass
+	unit_pressed.emit( self )
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -21,5 +22,5 @@ func _process(delta: float) -> void:
 	pass
 
 func _draw() -> void:
-	draw_rect(Rect2(position, Vector2(20,20)), Color.RED, false)
+	draw_rect(Rect2(position - Vector2(10,10), Vector2(20,20)), Color.RED, false) # center on position
 	pass
