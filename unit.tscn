@@ -4,3 +4,7 @@
 
 [node name="Unit" type="Sprite2D"]
 script = ExtResource("1_ywmu3")
+
+[node name="Hotspot" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0

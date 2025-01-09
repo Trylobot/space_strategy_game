@@ -21,9 +21,10 @@ func spawn_starting_units( starmap ):
 	for unit_type in STARTING_UNITS:
 		var unit = unit_scene.instantiate()
 		unit.unit_type = unit_type
-		unit.position = starmap.get_child( randi() % starmap.get_children().size() ).position
+		var star_idx = randi() % starmap.get_children().size()
+		unit.global_position = starmap.get_child( star_idx ).global_position
 		$Units.add_child( unit )
 	pass
 	
-func get_units():
+func get_units() -> Array[Node]:
 	return $Units.get_children()
