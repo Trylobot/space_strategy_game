@@ -23,11 +23,10 @@ func _draw():
 		draw_line( s0.position * 2, s1.position * 2, color, 5, true ) # not sure why the "* 2"
 
 func check_hover( mouse_pos:Vector2 ) -> bool:
-	## google AI sucks balls
-	#var line_dir = s1.position - s0.position
-	#var to_point = mouse_pos - s0.position
-	#var projection_length = to_point.dot( line_dir )
-	#var closest_point = s0.position + (line_dir.normalized() * projection_length)
-	#var distance = mouse_pos.distance_to( closest_point )
-	#return (distance <= MOUSE_HOVER_DISTANCE_THRESHOLD)
-	return false
+	var line_dir = s1.global_position - s0.global_position
+	var to_point = mouse_pos - s0.global_position
+	var projection_length = to_point.dot( line_dir )
+	var closest_point = s0.global_position + (line_dir.normalized() * projection_length)
+	var distance = mouse_pos.distance_to( closest_point )
+	return (distance <= MOUSE_HOVER_DISTANCE_THRESHOLD)
+	

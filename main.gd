@@ -31,13 +31,13 @@ func _ready():
 	pass
 
 func _draw():
-	for spacelane in $Spacelanes.get_children():
-		spacelane._draw()
-	for star in $Starmap.get_children():
-		star._draw()
-	for faction in $Factions.get_children():
-		for unit in faction.get_units():
-			unit._draw()
+	#for spacelane in $Spacelanes.get_children():
+		#spacelane._draw()
+	#for star in $Starmap.get_children():
+		#star._draw()
+	#for faction in $Factions.get_children():
+		#for unit in faction.get_units():
+			#unit._draw()
 	pass
 
 func _unhandled_input(event):
