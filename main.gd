@@ -31,13 +31,7 @@ func _ready():
 	pass
 
 func _draw():
-	#for spacelane in $Spacelanes.get_children():
-		#spacelane._draw()
-	#for star in $Starmap.get_children():
-		#star._draw()
-	#for faction in $Factions.get_children():
-		#for unit in faction.get_units():
-			#unit._draw()
+	draw_string(default_font, get_viewport().get_mouse_position(), "viewport_size %s" % $Camera2D.get_viewport().size, HORIZONTAL_ALIGNMENT_LEFT, -1, default_font_size)
 	pass
 
 func _unhandled_input(event):

@@ -7,6 +7,9 @@
 script = ExtResource("1_uw6hu")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_callback = 0
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
 script = ExtResource("2_mg8b1")
 
 [node name="Starmap" type="Node" parent="."]
