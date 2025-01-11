@@ -6,9 +6,7 @@ var start_position = Vector2.ZERO
 var zoom_speed = 0.1
 var min_zoom = 0.1
 var max_zoom = 5.0
-
-var tween
-
+var tweening = false
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
@@ -33,16 +31,12 @@ func _unhandled_input(event):
 		position = start_position + relative_motion * (viewport_size * zoom)
 
 func zoom_at_point(zoom_factor: float, point: Vector2):
-	tween = get_tree().create_tween()
-	tween.tween_property( self, "zoom", zoom * zoom_factor, 0.5 )
-	
-	
-	#zoom = zoom * zoom_factor
-	#var new_zoom = zoom * zoom_factor
-	#new_zoom.x = clamp(new_zoom.x, min_zoom, max_zoom)
-	#new_zoom.y = clamp(new_zoom.y, min_zoom, max_zoom)
-	#
-	#var mouse_pos = point - position
-	#position += mouse_pos - (mouse_pos * zoom_factor)
-	#zoom = new_zoom
-	pass
+	if not tweening:
+		var tween = get_tree().create_tween()
+		tweening = true
+		tween.tween_property( self, "zoom", zoom * zoom_factor, 0.5 )
+		tween.parallel().tween_property( self, "position", position - get_global_mouse_position(), 0.5 )
+		tween.tween_callback(tween_callback)
+
+func tween_callback():
+	tweening = false
